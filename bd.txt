@@ -1,0 +1,37 @@
+CREATE DATABASE IF NOT EXISTS Sistema_Academia;
+
+USE Sistema_Academia;
+
+CREATE TABLE IF NOT EXISTS tbl_Pessoa (
+    ID_Pessoa INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Data_Nascimento DATE NOT NULL,
+    CPF VARCHAR(11) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tbl_cadastroLogin(
+	id_login int auto_increment primary key,
+	Login varchar(100),
+    Senha varchar(100)
+);
+
+CREATE TABLE IF NOT EXISTS tbl_Aluno(
+	ID_Aluno smallint primary key auto_increment,
+    Mensalidade decimal(7,2) not null,
+    Id_Pessoa smallint not null unique #unique, nesse caso, garante 1:1
+);
+alter table tbl_Aluno add constraint fk_ID_Pes_Alu
+foreign key (ID_Pessoa) references tbl_Pessoa(ID_Pessoa);
+
+select
+	tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nascimento,
+    tbl_Aluno.Mensalidade
+from tbl_Aluno
+inner join tbl_Pessoa
+on tbl_Aluno.ID_Pessoa = tbl_Pessoa.ID_Pessoa;
+
+
+select * from tbl_cadastroLogin;
+select * from  tbl_Pessoa;
+select * from tbl_Aluno
+
